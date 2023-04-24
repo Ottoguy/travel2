@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.agency</groupId>
-	<artifactId>travel2</artifactId>
+	<artifactId>travel2car</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>travel2</name>
-	<description>Travel 2 Agency</description>
+	<description>Travel 2 Car</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
