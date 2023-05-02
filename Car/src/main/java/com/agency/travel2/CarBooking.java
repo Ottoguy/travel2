@@ -5,6 +5,8 @@ public class CarBooking {
     private long id;
     private String content;
 
+    private String brand;
+
     public long getId() {
         return id;
     }
@@ -19,6 +21,14 @@ public class CarBooking {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
 }
