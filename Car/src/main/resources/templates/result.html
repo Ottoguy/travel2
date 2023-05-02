@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-  <title>Getting Started: Handling Form Submission</title>
+  <title>Car booking</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
+<h1>Car reservation</h1>
+
+<p th:text="'Brand of car: ' + ${carbooking.brand}" />
+<p th:text="'Rent car from: ' + ${carbooking.from}" />
+<p th:text="'Rent car to: ' + ${carbooking.to}" />
 <p th:text="'Booking id: ' + ${carbooking.id}" />
 <p th:text="'Message: ' + ${carbooking.content}" />
-<p th:text="'Brand of car: ' + ${carbooking.brand}" />
+
 <a href="/carbooking">Book another car</a>
 </body>
 </html>

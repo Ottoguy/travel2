@@ -1,20 +1,35 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-  <title>Getting Started: Handling Form Submission</title>
+  <title>Car booking</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Form</h1>
+<h1>Car rental</h1>
 <form action="#" th:action="@{/carbooking}" th:object="${carbooking}" method="post">
-  <p>Booking id: <input type="text" th:field="*{id}" /></p>
-  <p>Message: <input type="text" th:field="*{content}" /></p>
+
   <input type="radio" id="volvo" name="car_brand" value="Volvo" th:field="*{brand}">
   <label for="volvo">Volvo</label><br>
   <input type="radio" id="saab" name="car_brand" value="Saab" th:field="*{brand}">
   <label for="saab">Saab</label><br>
   <input type="radio" id="toyota" name="car_brand" value="Toyota" th:field="*{brand}">
   <label for="toyota">Toyota</label>
+
+  <br>
+  <br>
+
+  <label for="from">Rent car from (date and time):</label>
+  <input type="datetime-local" id="from" name="from" th:field="*{from}">
+  <br>
+  <label for="to">Rent car to (date and time):</label>
+  <input type="datetime-local" id="to" name="to" th:field="*{to}">
+
+  <br>
+
+  <p>Booking id: <input type="text" th:field="*{id}" /></p>
+
+  <p>Message: <input type="text" th:field="*{content}" /></p>
+
   <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>
