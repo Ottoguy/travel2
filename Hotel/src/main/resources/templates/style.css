@@ -1,0 +1,36 @@
+/* CSS for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f2f2f2;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+/* CSS for alternate row colors */
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* CSS for hover effect */
+tr:hover {
+  background-color: #e6e6e6;
+}
+
+/* CSS for cell borders */
+td {
+  border-right: 1px solid #ddd;
+}
+
+td:last-child {
+  border-right: none;
+}

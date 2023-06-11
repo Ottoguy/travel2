@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>bookings</title>
+
+</head>
+<body>
+<h1>Bookings</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Check-In Date</th>
+    <th>Check-Out Date</th>
+    <th>Number of Persons</th>
+    <th>City</th>
+    <th>Promo Code for Taxi</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterate over the bookings list and display each booking -->
+  <tr th:each="booking : ${bookings}">
+    <td th:text="${booking.Id}"></td>
+    <td th:text="${booking.checkInDate}"></td>
+    <td th:text="${booking.checkOutDate}"></td>
+    <td th:text="${booking.numberOfPersons}"></td>
+    <td th:text="${booking.city}"></td>
+    <td th:text="${booking.promoCodeForTaxi}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
+
+<style>
+table {
+width: 100%;
+border-collapse: collapse;
+background-color: #f2f2f2;
+}
+
+th, td {
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid #ffb700;
+}
+
+th {
+background-color: #f8f8f8;
+color: #333;
+}
+
+tr:nth-child(even) {
+background-color: #fafafa;
+}
+
+tr:hover {
+background-color: #e6e6e6;
+}
+
+td {
+border-right: 1px solid #ddd;
+}
+
+td:last-child {
+border-right: none;
+}
+</style>
