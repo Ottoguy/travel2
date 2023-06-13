@@ -1,15 +1,34 @@
 package com.agency.travel2;
-
+import jakarta.persistence.*;
+@Entity
+@Table(name = "carBookings")
 public class CarBooking {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "brand")
     private String brand;
 
+    @Column(name = "from")
     private String from;
 
+    @Column(name = "to")
     private String to;
+
+    public CarBooking(){
+
+    }
+
+    public CarBooking(String content, String brand, String from, String to) {
+        this.content = content;
+        this.brand = brand;
+        this.from = from;
+        this.to = to;
+    }
 
     public long getId() {
         return id;
@@ -49,6 +68,12 @@ public class CarBooking {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "Carbooking [id=" + id + ", content=" + content + ", brand=" + brand + ", from=" + from + ", to=" + to
+                + "]";
     }
 
 }
