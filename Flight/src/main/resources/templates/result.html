@@ -11,6 +11,6 @@
 <p th:text="'Destination: ' + ${flightbooking.destination}" />
 <p th:text="'Flight number: ' + ${flightbooking.flightnumber}" />
 
-<a href="/flightbooking">Book another flight</a>
+<a th:href="'http://127.0.0.1:8080/carbooking#' + ${flightbooking.id}" >Book a car!</a>
 </body>
 </html>
