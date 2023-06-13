@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Flight booking</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Flight booking</h1>
+
+<p th:text="'Origin: ' + ${flightbooking.origin}" />
+<p th:text="'Destination: ' + ${flightbooking.destination}" />
+<p th:text="'Flight number: ' + ${flightbooking.flightnumber}" />
+
+<a href="/flightbooking">Book another flight</a>
+</body>
+</html>

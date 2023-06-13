@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE HTML>
+      <html xmlns:th="https://www.thymeleaf.org">
+      <head>
+      <title>Flight booking</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Flight booking</h1>
+<form action="#" th:action="@{/flightbooking}" th:object="${flightbooking}" method="post">
+
+  <p>Origin: <input type="text" th:field="*{origin}" /></p>
+  <br>
+  <p>Destination: <input type="text" th:field="*{destination}" /></p>
+  <br>
+  <p>Flight number: <input type="text" th:field="*{flightnumber}" /></p>
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
