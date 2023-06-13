@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,28 @@ public class FlightBookingController {
 
     @Autowired
     FlightBookingRepository flightBookingRepository;
+    @Autowired
+    private final RestTemplate restTemplate;
+    public FlightBookingController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+
+    @GetMapping("/query")
+    public ResponseEntity<String> makeQuery() {
+        String url = "http://localhost:8080/getQuery";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            String dataResponse = response.getBody();
+            // Process the dataResponse as needed
+            return ResponseEntity.ok("Response from MicroserviceB: " + dataResponse);
+        } else {
+            // Handle error case
+            return ResponseEntity.status(response.getStatusCode()).body("Error occurred: " + response.getStatusCode());
+        }
+    }
+
 
     @GetMapping("/flightbooking")
     public String flightBookingForm(Model model) {

@@ -61,6 +61,16 @@ public class CarBookingController {
         }
     }
 
+
+    @GetMapping("/getQuery")
+    @ResponseBody
+    public ResponseEntity<String> getQuery() {
+        return new ResponseEntity<>("hej", HttpStatus.OK);
+    }
+
+
+
+
     @PostMapping("/carBookings")
     @ResponseBody
     public ResponseEntity<CarBooking> createCarBooking(@RequestBody CarBooking carBooking) {
