@@ -66,7 +66,8 @@ public class CarBookingController {
     public ResponseEntity<CarBooking> createCarBooking(@RequestBody CarBooking carBooking) {
         try {
             CarBooking _carBooking = carBookingRepository
-                    .save(new CarBooking(carBooking.getContent(), carBooking.getBrand(), carBooking.getFrom(), carBooking.getTo()));
+                    //.save(new CarBooking(carBooking.getContent(), carBooking.getBrand(), carBooking.getFrom(), carBooking.getTo()));
+                    .save(carBooking);
             return new ResponseEntity<>(_carBooking, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
