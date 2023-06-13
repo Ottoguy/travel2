@@ -27,6 +27,7 @@ public class CarBookingController {
     @PostMapping("/carbooking")
     public String carBookingSubmit(@ModelAttribute CarBooking carbooking, Model model) {
         model.addAttribute("carbooking", carbooking);
+        createCarBooking(carbooking);
         return "result";
     }
 
