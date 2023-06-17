@@ -5,8 +5,12 @@ services:
     image: travel2car
     container_name: travel2carcontainer
     mem_limit: 512M
+    depends_on:
+      - travel2car_db
     ports:
      - 8080:8080
+    environment:
+      spring.datasource.url: "jdbc:postgresql://travel2car_db:5432/postgres"
 
   travel2flight:
     image: travel2flight
@@ -14,8 +18,11 @@ services:
     mem_limit: 512M
     depends_on:
       - travel2car
+      - travel2flight_db
     ports:
-     - 8081:8080
+     - 8081:8081
+    environment:
+      spring.datasource.url: "jdbc:postgresql://travel2flight_db:5432/postgres"
   travel2hotel:
     image: travel2hotel
     container_name: travel2hotelcontainer
@@ -23,5 +30,35 @@ services:
     depends_on:
      - travel2car
      - travel2flight
+     - travel2hotel_db
     ports:
-    - 8082:8080
+    - 8082:8082
+    environment:
+      spring.datasource.url: "jdbc:postgresql://travel2hotel_db:5432/postgres"
+
+  travel2car_db:
+    container_name: travel2car_db
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+
+  travel2flight_db:
+    container_name: travel2flight_db
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_USER=postgres
+    ports:
+      - 5433:5432
+
+  travel2hotel_db:
+    container_name: travel2hotel_db
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_USER=postgres
+    ports:
+      - 5434:5432
