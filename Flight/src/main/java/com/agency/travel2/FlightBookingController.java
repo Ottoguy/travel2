@@ -24,7 +24,6 @@ public class FlightBookingController {
         this.restTemplate = restTemplate;
     }
 
-
     @GetMapping("/query")
     public ResponseEntity<String> makeQuery() {
         String url = "http://localhost:8080/getQuery";

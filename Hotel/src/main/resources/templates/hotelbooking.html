@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <meta charset="UTF-8">
+      <title><!DOCTYPE HTML>
+      <html xmlns:th="https://www.thymeleaf.org">
+      <head>
+      <title>Hotel booking</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Flight booking</h1>
+<form action="#" th:action="@{/hotelbooking}" th:object="${hotelbooking}" method="post">
+
+  <p>Amount of beds: <input type="number" th:field="*{beds}" /></p>
+  <br>
+  <p>Which floor: <input type="number" th:field="*{floor}" /></p>
+  <br>
+  <p>Car ID (if any, otherwise 0): <input type="number" th:field="*{carId}" /></p>
+  <br>
+  <p>Flight ID (if any, otherwise 0): <input type="number" th:field="*{flightId}" /></p>
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
