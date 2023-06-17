@@ -95,6 +95,8 @@ public class CarBookingController {
             _carBooking.setBrand(carBooking.getBrand());
             _carBooking.setFrom(carBooking.getFrom());
             _carBooking.setTo(carBooking.getTo());
+            _carBooking.setFlightId(carBooking.getFlightId());
+            _carBooking.setHotelId(carBooking.getHotelId());
             return new ResponseEntity<>(carBookingRepository.save(_carBooking), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
