@@ -29,6 +29,28 @@ public class HotelBookingController {
         this.restTemplate = restTemplate;
     }
 
+
+    @GetMapping("/summary/{id}")
+    @ResponseBody
+    public ResponseEntity<String> summary(@PathVariable("id") long id) {
+        Optional<HotelBooking> hotelBookingData = hotelBookingRepository.findById(id);
+
+        try{
+            String flight_url = "http://localhost:8081/flightBookings/" + hotelBookingData.get().getFlightId();
+            ResponseEntity<String> flight_response = restTemplate.getForEntity(flight_url, String.class);
+
+            String car_url = "http://localhost:8081/flightBookings/" + hotelBookingData.get().getCarId();
+            ResponseEntity<String> car_response = restTemplate.getForEntity(car_url, String.class);
+
+                if (hotelBookingData.isPresent() ) {
+                    return new ResponseEntity<>(hotelBookingData.get().toString() + flight_response.getBody().toString() + car_response.getBody().toString(), HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/query")
     public ResponseEntity<String> makeQuery() {
         String url = "http://localhost:8080/getQuery";
