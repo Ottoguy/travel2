@@ -12,7 +12,10 @@
 <p th:text="'Rent car to: ' + ${carbooking.to}" />
 <p th:text="'Booking id: ' + ${carbooking.id}" />
 <p th:text="'Message: ' + ${carbooking.content}" />
+<p th:text="'Flight Id (if any, otherwise 0): ' + ${carbooking.flightId}" />
+<a th:href="@{'http://127.0.0.1:8081/flightBookings/' + ${carbooking.flightId}}">Flight information</a>
+<p th:text="'Hotel Id (if any, otherwise 0): ' + ${carbooking.hotelId}" />
 
-<a href="/carbooking">Book another car</a>
+<a href="'http://127.0.0.1:8082/hotelbooking'">Book a hotel room!</a>
 </body>
 </html>
