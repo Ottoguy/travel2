@@ -8,4 +8,8 @@ public interface FlightBookingRepository extends JpaRepository<FlightBooking, Lo
     List<FlightBooking> findByFlightnumber(int flightnumber);
 
     List<FlightBooking> findByOrigin(String origin);
+
+    List<FlightBooking> findByCarId(long carId);
+
+    List<FlightBooking> findByHotelId(long hotelId);
 }
