@@ -24,7 +24,6 @@ public class FlightBookingController {
         this.restTemplate = restTemplate;
     }
 
-
     @GetMapping("/query")
     public ResponseEntity<String> makeQuery() {
         String url = "http://localhost:8080/getQuery";
@@ -107,6 +106,8 @@ public class FlightBookingController {
             _flightBooking.setOrigin(flightBooking.getOrigin());
             _flightBooking.setDestination(flightBooking.getDestination());
             _flightBooking.setFlightnumber(flightBooking.getFlightnumber());
+            _flightBooking.setCarId(flightBooking.getCarId());
+            _flightBooking.setHotelId(flightBooking.getHotelId());
             return new ResponseEntity<>(flightBookingRepository.save(_flightBooking), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

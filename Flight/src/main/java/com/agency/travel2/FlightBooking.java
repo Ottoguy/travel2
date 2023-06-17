@@ -2,7 +2,7 @@ package com.agency.travel2;
 
 import jakarta.persistence.*;
 @Entity
-@Table(name = "flightBookings")
+@Table(name = "flightBookings2")
 public class FlightBooking {
 
     @Id
@@ -18,14 +18,22 @@ public class FlightBooking {
     @Column(name = "flightnumber")
     private int flightnumber;
 
+    @Column(name = "carId")
+    private long carId;
+
+    @Column(name = "hotelId")
+    private long hotelId;
+
     public FlightBooking() {
 
     }
 
-    public FlightBooking(String origin, String destination, int flightnumber) {
+    public FlightBooking(String origin, String destination, int flightnumber, long carId, long hotelId) {
         this.origin = origin;
         this.destination = destination;
         this.flightnumber = flightnumber;
+        this.carId = carId;
+        this.hotelId = hotelId;
     }
 
     public long getId() {
@@ -56,8 +64,25 @@ public class FlightBooking {
         this.flightnumber = flightnumber;
     }
 
+    public long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(long carId) {
+        this.carId = carId;
+    }
+
+    public long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+
     @Override
     public String toString() {
-        return "Flightbooking [id=" + id + ", origin=" + origin + ", destination=" + destination + ", flightnumber=" + flightnumber + "]";
+        return "Flightbooking [id=" + id + ", origin=" + origin + ", destination=" + destination + ", flightnumber=" + flightnumber + ", carId=" + carId + ", hotelId=" + hotelId + "]";
     }
 }

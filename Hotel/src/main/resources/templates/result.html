@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Hotel booking</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Hotel booking</h1>
+
+<p th:text="'Beds: ' + ${hotelbooking.beds}" />
+<p th:text="'Floor: ' + ${hotelbooking.floor}" />
+<p th:text="'Hotel booking Id: ' + ${hotelbooking.id}" />
+<p th:text="'Car Id (if any, otherwise 0): ' + ${hotelbooking.carId}" />
+<a th:href="@{'http://127.0.0.1:8080/carBookings/' + ${hotelbooking.carId}}">Car information</a>
+<p th:text="'Flight Id (if any, otherwise 0): ' + ${hotelbooking.flightId}" />
+<a th:href="@{'http://127.0.0.1:8081/flightBookings/' + ${hotelbooking.flightId}}">Flight information</a>
+
+
+<a th:href="'http://127.0.0.1:8080/carbooking'" >Overview your booking!</a>
+</body>
+</html>

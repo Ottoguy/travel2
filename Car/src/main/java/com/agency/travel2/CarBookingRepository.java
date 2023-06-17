@@ -8,4 +8,8 @@ public interface CarBookingRepository extends JpaRepository<CarBooking, Long> {
     List<CarBooking> findById(int id);
 
     List<CarBooking> findByBrand(String brand);
+
+    List<CarBooking> findByFlightId(long flightId);
+
+    List<CarBooking> findByHotelId(long hotelId);
 }
