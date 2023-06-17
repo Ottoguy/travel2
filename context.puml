@@ -1,0 +1,7 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Karel", "Customer that wants to travel")
+System(travel2, "Travel2")
+Rel(user, travel2, "Uses")
+@enduml

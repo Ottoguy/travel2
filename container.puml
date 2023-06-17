@@ -1,0 +1,21 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+Person(user, "Karel", "Customer that wants to travel")
+Container(flight, "Flight", "java", "")
+Rel(user, flight, "Book")
+Container(car, "Car", "java", "")
+Rel(flight, car, "Redirects to")
+Container(hotel, "Hotel", "java", "")
+Rel(car, hotel, "Redirects to")
+
+ContainerDb(flight_db, "Database", "PostgreSQL", "Holds flight booking information")
+ContainerDb(car_db, "Database", "PostgreSQL", "Holds car booking information")
+ContainerDb(hotel_db, "Database", "PostgreSQL", "Holds hotel booking information")
+Rel(flight, flight_db, "Reads/writes")
+Rel(car, car_db, "Reads/writes")
+Rel(hotel, hotel_db, "Reads/writes")
+
+Rel(hotel, car, "Get booking details")
+Rel(hotel, flight, "Get booking details")
+
+@enduml
