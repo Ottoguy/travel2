@@ -53,25 +53,25 @@ public class FlightBookingController {
         return "result";
     }
 
-    @GetMapping("/flightBookings")
+    @GetMapping("/flightTable")
     @ResponseBody
     public ResponseEntity<List<FlightBooking>> getAllFlightBookings() {
         try {
-            List<FlightBooking> flightBookings = new ArrayList<FlightBooking>();
+            List<FlightBooking> flightTable = new ArrayList<FlightBooking>();
 
-            flightBookingRepository.findAll().forEach(flightBookings::add);
+            flightBookingRepository.findAll().forEach(flightTable::add);
 
-            if (flightBookings.isEmpty()) {
+            if (flightTable.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(flightBookings, HttpStatus.OK);
+            return new ResponseEntity<>(flightTable, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/flightBookings/{id}")
+    @GetMapping("/flightTable/{id}")
     @ResponseBody
     public ResponseEntity<FlightBooking> getFlightBookingById(@PathVariable("id") long id) {
         Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
@@ -83,7 +83,7 @@ public class FlightBookingController {
         }
     }
 
-    @PostMapping("/flightBookings")
+    @PostMapping("/flightTable")
     @ResponseBody
     public ResponseEntity<FlightBooking> createFlightBooking(@RequestBody FlightBooking flightBooking) {
         try {
@@ -96,7 +96,7 @@ public class FlightBookingController {
         }
     }
 
-    @PutMapping("/flightBookings/{id}")
+    @PutMapping("/flightTable/{id}")
     @ResponseBody
     public ResponseEntity<FlightBooking> updateFlightBooking(@PathVariable("id") long id, @RequestBody FlightBooking flightBooking) {
         Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
@@ -114,7 +114,7 @@ public class FlightBookingController {
         }
     }
 
-    @DeleteMapping("/flightBookings/{id}")
+    @DeleteMapping("/flightTable/{id}")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteFlightBooking(@PathVariable("id") long id) {
         try {
@@ -125,7 +125,7 @@ public class FlightBookingController {
         }
     }
 
-    @DeleteMapping("/flightBookings")
+    @DeleteMapping("/flightTable")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteAllFlightBookings() {
         try {

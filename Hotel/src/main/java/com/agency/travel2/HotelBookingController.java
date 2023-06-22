@@ -1,13 +1,8 @@
 package com.agency.travel2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,25 +73,25 @@ public class HotelBookingController {
         return "result";
     }
 
-    @GetMapping("/hotelBookings")
+    @GetMapping("/hotelTable")
     @ResponseBody
     public ResponseEntity<List<HotelBooking>> getAllHotelBookings() {
         try {
-            List<HotelBooking> hotelBookings = new ArrayList<HotelBooking>();
+            List<HotelBooking> hotelTable = new ArrayList<HotelBooking>();
 
-            hotelBookingRepository.findAll().forEach(hotelBookings::add);
+            hotelBookingRepository.findAll().forEach(hotelTable::add);
 
-            if (hotelBookings.isEmpty()) {
+            if (hotelTable.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(hotelBookings, HttpStatus.OK);
+            return new ResponseEntity<>(hotelTable, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/hotelBookings/{id}")
+    @GetMapping("/hotelTable/{id}")
     @ResponseBody
     public ResponseEntity<HotelBooking> getHotelBookingById(@PathVariable("id") long id) {
         Optional<HotelBooking> hotelBookingData = hotelBookingRepository.findById(id);
@@ -108,7 +103,7 @@ public class HotelBookingController {
         }
     }
 
-    @PostMapping("/hotelBookings")
+    @PostMapping("/hotelTable")
     @ResponseBody
     public ResponseEntity<HotelBooking> createHotelBooking(@RequestBody HotelBooking hotelBooking) {
         try {
@@ -120,7 +115,7 @@ public class HotelBookingController {
         }
     }
 
-    @PutMapping("/hotelBookings/{id}")
+    @PutMapping("/hotelTable/{id}")
     @ResponseBody
     public ResponseEntity<HotelBooking> updateHotelBooking(@PathVariable("id") long id, @RequestBody HotelBooking hotelBooking) {
         Optional<HotelBooking> hotelBookingData = hotelBookingRepository.findById(id);
@@ -137,7 +132,7 @@ public class HotelBookingController {
         }
     }
 
-    @DeleteMapping("/hotelBookings/{id}")
+    @DeleteMapping("/hotelTable/{id}")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteHotelBooking(@PathVariable("id") long id) {
         try {
@@ -148,7 +143,7 @@ public class HotelBookingController {
         }
     }
 
-    @DeleteMapping("/hotelBookings")
+    @DeleteMapping("/hotelTable")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteAllHotelBookings() {
         try {

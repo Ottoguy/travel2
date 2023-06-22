@@ -7,6 +7,6 @@ public class HelloWorldController
     @RequestMapping("/")
     public String hello()
     {
-        return "Hello Hotel!";
+        return "Hello Hotel! Go to /hotelbooking to book hotel.";
     }
 }

@@ -31,25 +31,25 @@ public class CarBookingController {
         return "result";
     }
 
-    @GetMapping("/carBookings")
+    @GetMapping("/carTable")
     @ResponseBody
     public ResponseEntity<List<CarBooking>> getAllCarBookings() {
         try {
-            List<CarBooking> carBookings = new ArrayList<CarBooking>();
+            List<CarBooking> carTable = new ArrayList<CarBooking>();
 
-            carBookingRepository.findAll().forEach(carBookings::add);
+            carBookingRepository.findAll().forEach(carTable::add);
 
-            if (carBookings.isEmpty()) {
+            if (carTable.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(carBookings, HttpStatus.OK);
+            return new ResponseEntity<>(carTable, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/carBookings/{id}")
+    @GetMapping("/carTable/{id}")
     @ResponseBody
     public ResponseEntity<CarBooking> getCarBookingById(@PathVariable("id") long id) {
         Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
@@ -71,7 +71,7 @@ public class CarBookingController {
 
 
 
-    @PostMapping("/carBookings")
+    @PostMapping("/carTable")
     @ResponseBody
     public ResponseEntity<CarBooking> createCarBooking(@RequestBody CarBooking carBooking) {
         try {
@@ -84,7 +84,7 @@ public class CarBookingController {
         }
     }
 
-    @PutMapping("/carBookings/{id}")
+    @PutMapping("/carTable/{id}")
     @ResponseBody
     public ResponseEntity<CarBooking> updateCarBooking(@PathVariable("id") long id, @RequestBody CarBooking carBooking) {
         Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
@@ -103,7 +103,7 @@ public class CarBookingController {
         }
     }
 
-    @DeleteMapping("/carBookings/{id}")
+    @DeleteMapping("/carTable/{id}")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteCarBooking(@PathVariable("id") long id) {
         try {
@@ -114,7 +114,7 @@ public class CarBookingController {
         }
     }
 
-    @DeleteMapping("/carBookings")
+    @DeleteMapping("/carTable")
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteAllCarBookings() {
         try {

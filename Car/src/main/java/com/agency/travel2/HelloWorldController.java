@@ -14,7 +14,7 @@ public class HelloWorldController
     @RequestMapping("/")
     public String hello()
     {
-        return "Hello Car!";
+        return "Hello Car! Go to /carbooking to book a car.";
     }
 
 

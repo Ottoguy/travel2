@@ -1,7 +1,7 @@
 package com.agency.travel2;
 import jakarta.persistence.*;
 @Entity
-@Table(name = "carBookings2")
+@Table(name = "carTable")
 public class CarBooking {
 
     @Id

@@ -16,7 +16,6 @@ public class YAMLConfig {
     private boolean enabled;
     private List<String> servers = new ArrayList<>();
 
-    // standard getters and setters
 
     public String getName() {
         return this.name;

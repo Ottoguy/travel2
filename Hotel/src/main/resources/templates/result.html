@@ -11,9 +11,9 @@
 <p th:text="'Floor: ' + ${hotelbooking.floor}" />
 <p th:text="'Hotel booking Id: ' + ${hotelbooking.id}" />
 <p th:text="'Car Id (if any, otherwise 0): ' + ${hotelbooking.carId}" />
-<a th:href="@{'http://127.0.0.1:8080/carBookings/' + ${hotelbooking.carId}}">Car information</a>
+<a th:href="@{'http://127.0.0.1:8080/carTable/' + ${hotelbooking.carId}}">Car information</a>
 <p th:text="'Flight Id (if any, otherwise 0): ' + ${hotelbooking.flightId}" />
-<a th:href="@{'http://127.0.0.1:8081/flightBookings/' + ${hotelbooking.flightId}}">Flight information</a>
+<a th:href="@{'http://127.0.0.1:8081/flightTable/' + ${hotelbooking.flightId}}">Flight information</a>
 
 
 <a th:href="'http://127.0.0.1:8082/summary/'+ ${hotelbooking.id}" >Overview your booking!</a>
