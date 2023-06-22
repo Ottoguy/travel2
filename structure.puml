@@ -1,0 +1,34 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+' Update the generic boundary style and the "system", "enterprise", "container" boundaries styles too
+UpdateBoundaryStyle($bgColor="gold", $fontColor="brown", $borderColor="brown")
+' (Re-)Updates the system boundary styles; re-set $bgColor avoids '(no back color)' in legend too
+UpdateSystemBoundaryStyle($bgColor="gold", $fontColor="white", $borderColor="white")
+
+AddBoundaryTag("repository", $bgColor="green", $fontColor="white", $borderColor="white", $shadowing="true", $shape = RoundedBoxShape(), $type="GitHub repository")
+
+AddBoundaryTag("db", $bgColor="blue", $fontColor="white", $borderColor="white", $shadowing="true", $shape = RoundedBoxShape(), $type="Persisent storage")
+
+
+System_Boundary(sb, "A System Boundary") {
+Boundary(Travel2, "plantuml-stdlib/C4-PlantUML", $tags="repository") {
+  Container_Boundary(cb, "Travel2Car") {
+  }
+  Container_Boundary(cc, "Travel2Flight") {
+  }
+  Container_Boundary(cd, "Travel2Hotel") {
+  }
+  Boundary(anotherBoundary, "Databases", $tags="db") {
+    Container_Boundary(de, "Travel2Car_db") {
+    }
+    Container_Boundary(dc, "Travel2Flight_db") {
+    }
+    Container_Boundary(dd, "Travel2Hotel_db") {
+    }
+  }
+}
+}
+
+SHOW_LEGEND()
+@enduml
