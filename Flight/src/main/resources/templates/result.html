@@ -9,7 +9,7 @@
 
 <p th:text="'Origin: ' + ${flightbooking.origin}" />
 <p th:text="'Destination: ' + ${flightbooking.destination}" />
-<p th:text="'Flight number: ' + ${flightbooking.flightnumber}" />
+<p th:text="'Flight number: ' + ${flightbooking.flightNumber}" />
 <p th:text="'Flight Id: ' + ${flightbooking.id}" />
 <p th:text="'Car Id (if any, otherwise 0): ' + ${flightbooking.carId}" />
 <a th:href="@{'http://127.0.0.1:8080/carTable/' + ${flightbooking.carId}}">Car information</a>

@@ -15,8 +15,8 @@ public class FlightBooking {
     @Column(name = "destination")
     private String destination;
 
-    @Column(name = "flightnumber")
-    private int flightnumber;
+    @Column(name = "flightNumber")
+    private int flightNumber;
 
     @Column(name = "carId")
     private long carId;
@@ -28,10 +28,10 @@ public class FlightBooking {
 
     }
 
-    public FlightBooking(String origin, String destination, int flightnumber, long carId, long hotelId) {
+    public FlightBooking(String origin, String destination, int flightNumber, long carId, long hotelId) {
         this.origin = origin;
         this.destination = destination;
-        this.flightnumber = flightnumber;
+        this.flightNumber = flightNumber;
         this.carId = carId;
         this.hotelId = hotelId;
     }
@@ -57,11 +57,11 @@ public class FlightBooking {
     }
 
     public int getFlightnumber() {
-        return flightnumber;
+        return flightNumber;
     }
 
-    public void setFlightnumber(int flightnumber) {
-        this.flightnumber = flightnumber;
+    public void setFlightnumber(int flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
     public long getCarId() {
@@ -83,6 +83,6 @@ public class FlightBooking {
 
     @Override
     public String toString() {
-        return "Flightbooking [id=" + id + ", origin=" + origin + ", destination=" + destination + ", flightnumber=" + flightnumber + ", carId=" + carId + ", hotelId=" + hotelId + "]";
+        return "Flightbooking [id=" + id + ", origin=" + origin + ", destination=" + destination + ", flightNumber=" + flightNumber + ", carId=" + carId + ", hotelId=" + hotelId + "]";
     }
 }
