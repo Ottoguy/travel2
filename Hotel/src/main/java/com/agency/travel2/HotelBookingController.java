@@ -29,37 +29,38 @@ public class HotelBookingController {
     @ResponseBody
     public ResponseEntity<String> summary(@PathVariable("id") long id) {
         Optional<HotelBooking> hotelBookingData = hotelBookingRepository.findById(id);
+        if (hotelBookingData.isPresent() ) {
+            String flight_info;
+            String car_info;
+            String hotel_info = getHotelBookingInfo(id).getBody();
 
-        try{
-            String flight_url = "http://localhost:8081/flightBookings/" + hotelBookingData.get().getFlightId();
-            ResponseEntity<String> flight_response = restTemplate.getForEntity(flight_url, String.class);
+            try{
+                String flight_url = "http://localhost:8081/flightTable/info/" + hotelBookingData.get().getFlightId();
+                ResponseEntity<String> flight_response = restTemplate.getForEntity(flight_url, String.class);
+                flight_info = flight_response.getBody();
 
-            String car_url = "http://localhost:8081/flightBookings/" + hotelBookingData.get().getCarId();
-            ResponseEntity<String> car_response = restTemplate.getForEntity(car_url, String.class);
 
-                if (hotelBookingData.isPresent() ) {
-                    return new ResponseEntity<>(hotelBookingData.get().toString() + flight_response.getBody().toString() + car_response.getBody().toString(), HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @GetMapping("/query")
-    public ResponseEntity<String> makeQuery() {
-        String url = "http://localhost:8080/getQuery";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            } catch (Exception e) {
+                flight_info = "No flight booking with that id\n";
+            }
 
-        if (response.getStatusCode().is2xxSuccessful()) {
-            String dataResponse = response.getBody();
-            // Process the dataResponse as needed
-            return ResponseEntity.ok("Response from MicroserviceB: " + dataResponse);
+            try{
+                String car_url = "http://localhost:8080/carTable/info/" + hotelBookingData.get().getCarId();
+                ResponseEntity<String> car_response = restTemplate.getForEntity(car_url, String.class);
+                car_info = car_response.getBody();
+
+
+            } catch (Exception e) {
+                car_info = "No car booking with that id\n";
+            }
+
+            return new ResponseEntity<>( hotel_info + flight_info + car_info, HttpStatus.OK);
+
         } else {
-            // Handle error case
-            return ResponseEntity.status(response.getStatusCode()).body("Error occurred: " + response.getStatusCode());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/hotelbooking")
     public String hotelBookingForm(Model model) {
         model.addAttribute("hotelbooking", new HotelBooking());
@@ -129,6 +130,22 @@ public class HotelBookingController {
             return new ResponseEntity<>(hotelBookingRepository.save(_hotelBooking), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/hotelTable/info/{id}")
+    @ResponseBody
+    public ResponseEntity<String> getHotelBookingInfo(@PathVariable("id") long id) {
+        Optional<HotelBooking> hotelBookingData = hotelBookingRepository.findById(id);
+
+        if (hotelBookingData.isPresent()) {
+
+            String beds = String.valueOf(hotelBookingData.get().getBeds());
+            String floor = String.valueOf(hotelBookingData.get().getFloor());
+
+            return new ResponseEntity<>("Beds: " + beds + "\n" + "Floor: " + floor + "\n", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No hotel booking with that id", HttpStatus.OK);
         }
     }
 

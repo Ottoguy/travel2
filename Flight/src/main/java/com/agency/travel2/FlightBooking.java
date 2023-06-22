@@ -56,11 +56,11 @@ public class FlightBooking {
         this.destination = destination;
     }
 
-    public int getFlightnumber() {
+    public int getFlightNumber() {
         return flightNumber;
     }
 
-    public void setFlightnumber(int flightNumber) {
+    public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
     }
 

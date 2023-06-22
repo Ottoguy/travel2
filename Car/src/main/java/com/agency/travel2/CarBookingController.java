@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,10 @@ public class CarBookingController {
 
     @Autowired
     CarBookingRepository carBookingRepository;
+    private final RestTemplate restTemplate;
+    public CarBookingController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @GetMapping("/carbooking")
     public String carBookingForm(Model model) {
@@ -58,6 +63,58 @@ public class CarBookingController {
             return new ResponseEntity<>(carBookingData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/summary/{id}")
+    @ResponseBody
+    public ResponseEntity<String> summary(@PathVariable("id") long id) {
+        Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
+        if (carBookingData.isPresent() ) {
+            String flight_info;
+            String hotel_info;
+            String car_info = getCarBookingInfo(id).getBody();
+
+            try{
+                String flight_url = "http://localhost:8081/flightTable/info/" + carBookingData.get().getFlightId();
+                ResponseEntity<String> flight_response = restTemplate.getForEntity(flight_url, String.class);
+                flight_info = flight_response.getBody();
+
+
+            } catch (Exception e) {
+                flight_info = "No flight booking with that id\n";
+            }
+
+            try{
+                String hotel_url = "http://localhost:8082/hotelTable/info/" + carBookingData.get().getHotelId();
+                ResponseEntity<String> hotel_response = restTemplate.getForEntity(hotel_url, String.class);
+                hotel_info = hotel_response.getBody();
+
+
+            } catch (Exception e) {
+                hotel_info = "No hotel booking with that id\n";
+            }
+
+            return new ResponseEntity<>( hotel_info + flight_info + car_info, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/carTable/info/{id}")
+    @ResponseBody
+    public ResponseEntity<String> getCarBookingInfo(@PathVariable("id") long id) {
+        Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
+
+        if (carBookingData.isPresent()) {
+
+            String from = carBookingData.get().getFrom();
+            String to = carBookingData.get().getTo();
+
+            return new ResponseEntity<>("From: " + from + "\n" + "To: " + to + "\n", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No car booking with that id", HttpStatus.OK);
         }
     }
 

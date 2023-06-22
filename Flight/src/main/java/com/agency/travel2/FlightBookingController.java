@@ -24,18 +24,39 @@ public class FlightBookingController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping("/query")
-    public ResponseEntity<String> makeQuery() {
-        String url = "http://localhost:8080/getQuery";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    @GetMapping("/summary/{id}")
+    @ResponseBody
+    public ResponseEntity<String> summary(@PathVariable("id") long id) {
+        Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
+        if (flightBookingData.isPresent() ) {
+            String hotel_info;
+            String car_info;
+            String flight_info = getFlightBookingInfo(id).getBody();
 
-        if (response.getStatusCode().is2xxSuccessful()) {
-            String dataResponse = response.getBody();
-            // Process the dataResponse as needed
-            return ResponseEntity.ok("Response from MicroserviceB: " + dataResponse);
+            try{
+                String hotel_url = "http://localhost:8082/hotelTable/info/" + flightBookingData.get().getHotelId();
+                ResponseEntity<String> hotel_response = restTemplate.getForEntity(hotel_url, String.class);
+                hotel_info = hotel_response.getBody();
+
+
+            } catch (Exception e) {
+                hotel_info = "No hotel booking with that id\n";
+            }
+
+            try{
+                String car_url = "http://localhost:8080/carTable/info/" + flightBookingData.get().getCarId();
+                ResponseEntity<String> car_response = restTemplate.getForEntity(car_url, String.class);
+                car_info = car_response.getBody();
+
+
+            } catch (Exception e) {
+                car_info = "No car booking with that id\n";
+            }
+
+            return new ResponseEntity<>( hotel_info + flight_info + car_info, HttpStatus.OK);
+
         } else {
-            // Handle error case
-            return ResponseEntity.status(response.getStatusCode()).body("Error occurred: " + response.getStatusCode());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -83,6 +104,20 @@ public class FlightBookingController {
         }
     }
 
+    @GetMapping("/flightTable/info/{id}")
+    @ResponseBody
+    public ResponseEntity<String> getFlightBookingInfo(@PathVariable("id") long id) {
+        Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
+
+        if (flightBookingData.isPresent()) {
+            String origin = flightBookingData.get().getOrigin();
+            String destination = flightBookingData.get().getDestination();
+            return new ResponseEntity<>("Origin: " + origin + "\n" + "Destination: " + destination + "\n", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No flight booking with that id", HttpStatus.OK);
+        }
+    }
+
     @PostMapping("/flightTable")
     @ResponseBody
     public ResponseEntity<FlightBooking> createFlightBooking(@RequestBody FlightBooking flightBooking) {
@@ -105,7 +140,7 @@ public class FlightBookingController {
             FlightBooking _flightBooking = flightBookingData.get();
             _flightBooking.setOrigin(flightBooking.getOrigin());
             _flightBooking.setDestination(flightBooking.getDestination());
-            _flightBooking.setFlightnumber(flightBooking.getFlightnumber());
+            _flightBooking.setFlightNumber(flightBooking.getFlightNumber());
             _flightBooking.setCarId(flightBooking.getCarId());
             _flightBooking.setHotelId(flightBooking.getHotelId());
             return new ResponseEntity<>(flightBookingRepository.save(_flightBooking), HttpStatus.OK);

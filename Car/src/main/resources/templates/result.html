@@ -13,10 +13,12 @@
 <p th:text="'Booking id: ' + ${carbooking.id}" />
 <p th:text="'Message: ' + ${carbooking.content}" />
 <p th:text="'Flight Id (if any, otherwise 0): ' + ${carbooking.flightId}" />
-<a th:href="@{'http://127.0.0.1:8081/flightTable/' + ${carbooking.flightId}}">Flight information</a>
+<a th:href="@{'http://127.0.0.1:8081/flightTable/info/' + ${carbooking.flightId}}">Flight information</a>
 <p th:text="'Hotel Id (if any, otherwise 0): ' + ${carbooking.hotelId}" />
-<a th:href="@{'http://127.0.0.1:8082/hotelTable' + ${carbooking.hotelId}}">Hotel information</a>
+<a th:href="@{'http://127.0.0.1:8082/hotelTable/info' + ${carbooking.hotelId}}">Hotel information</a>
 <br>
 <a href="http://127.0.0.1:8082/hotelbooking">Book a hotel room!</a>
+
+<a th:href="'http://127.0.0.1:8080/summary/'+ ${carbooking.id}" >Overview your booking!</a>
 </body>
 </html>
