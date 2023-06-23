@@ -51,7 +51,7 @@ class Travel2ApplicationTest {
 	void testGetAllCarBookings() throws Exception {
 		when(carBookingRepository.findAll()).thenReturn(carBookings);
 
-		mockMvc.perform(get("/carBookings"))
+		mockMvc.perform(get("/carTable"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.length()").value(carBookings.size()))
@@ -70,7 +70,7 @@ class Travel2ApplicationTest {
 
 		when(carBookingRepository.findById(id)).thenReturn(java.util.Optional.of(car));
 
-		mockMvc.perform(get("/carBookings/{id}", id))
+		mockMvc.perform(get("/carTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(car.getId()))
@@ -136,7 +136,7 @@ class Travel2ApplicationTest {
 	}
 
 	private void validateFindByHotelIdOrFlightId(long id, CarBooking carBooking) throws Exception {
-		mockMvc.perform(get("/carBookings/{id}", id))
+		mockMvc.perform(get("/carTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(carBooking.getId()))

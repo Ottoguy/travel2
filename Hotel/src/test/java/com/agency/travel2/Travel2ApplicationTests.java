@@ -52,7 +52,7 @@ class Travel2ApplicationTest {
 	void testGetAllHotelBookings() throws Exception {
 		when(hotelBookingRepository.findAll()).thenReturn(hotelBookings);
 
-		mockMvc.perform(get("/hotelBookings"))
+		mockMvc.perform(get("/hotelTable"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.length()").value(hotelBookings.size()))
@@ -77,7 +77,7 @@ class Travel2ApplicationTest {
 
 		when(hotelBookingRepository.findById(id)).thenReturn(java.util.Optional.of(hotelBooking));
 
-		mockMvc.perform(get("/hotelBookings/{id}", id))
+		mockMvc.perform(get("/hotelTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(hotelBooking.getId()))
@@ -97,7 +97,7 @@ class Travel2ApplicationTest {
 
 		when(hotelBookingRepository.save(hotelBooking)).thenReturn(hotelBooking);
 
-		mockMvc.perform(post("/hotelBookings")
+		mockMvc.perform(post("/hotelTable")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(hotelBooking)))
 				.andExpect(status().isCreated());
@@ -119,7 +119,7 @@ class Travel2ApplicationTest {
 	}
 
 	private void validateFindByCarId(long id, HotelBooking hotelBooking) throws Exception {
-		mockMvc.perform(get("/hotelBookings/{id}", id))
+		mockMvc.perform(get("/hotelTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(hotelBooking.getId()))

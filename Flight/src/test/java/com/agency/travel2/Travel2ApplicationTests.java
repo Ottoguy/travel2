@@ -38,11 +38,11 @@ class Travel2ApplicationTest {
 		var flight1 = new FlightBooking();
 		var flight2 = new FlightBooking();
 
-		flight1.setFlightnumber(325);
+		flight1.setFlightNumber(325);
 		flight1.setDestination("Stockholm");
 		flight1.setOrigin("Prague");
 
-		flight1.setFlightnumber(446);
+		flight1.setFlightNumber(446);
 		flight1.setDestination("Prague");
 		flight1.setOrigin("Tbilisi");
 
@@ -54,7 +54,7 @@ class Travel2ApplicationTest {
 	void testGetAllFlights() throws Exception {
 		when(flightBookingRepo.findAll()).thenReturn(flightBookings);
 
-		mockMvc.perform(get("/flightBookings"))
+		mockMvc.perform(get("/flightTable"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.length()").value(flightBookings.size()))
@@ -75,7 +75,7 @@ class Travel2ApplicationTest {
 
 		when(flightBookingRepo.findById(id)).thenReturn(java.util.Optional.of(flight));
 
-		mockMvc.perform(get("/flightBookings/{id}", id))
+		mockMvc.perform(get("/flightTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(flight.getId()))
@@ -87,7 +87,7 @@ class Travel2ApplicationTest {
 	void testCreateFlightBooking() throws Exception {
 		long id = 3259;
 		FlightBooking flight = new FlightBooking();
-		flight.setFlightnumber(38);
+		flight.setFlightNumber(38);
 		flight.setId(341);
 		flight.setCarId(id);
 		flight.setOrigin("Stockholm");
@@ -96,7 +96,7 @@ class Travel2ApplicationTest {
 
 		when(flightBookingRepo.save(flight)).thenReturn(flight);
 
-		mockMvc.perform(post("/flightBookings")
+		mockMvc.perform(post("/flightTable")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(flight)))
 				.andExpect(status().isCreated());
@@ -106,34 +106,21 @@ class Travel2ApplicationTest {
 	@Test
 	void testFindByCarId() throws Exception {
 		long carId0 = 16131L;
-		//long hotelId1 = 13151L;
-		//long hotelId2 = 14563L;
 
 		FlightBooking flight = new FlightBooking();
 		flight.setCarId(carId0);
 		flightBookingRepo.save(flight);
 
-//		CarBooking carBooking1 = new CarBooking();
-//		carBooking1.setHotelId(hotelId1);
-//		carBookingRepository.save(carBooking1);
-//
-//		CarBooking carBooking2 = new CarBooking();
-//		carBooking2.setHotelId(hotelId2);
-//		carBookingRepository.save(carBooking2);
-
 		List<FlightBooking> bookings = flightBookingRepo.findByCarId(carId0);
 
 		when(flightBookingRepo.findById(carId0)).thenReturn(Optional.of(flight));
-		//when(carBookingRepository.findById(hotelId1)).thenReturn(Optional.of(carBooking1));
-		//when(carBookingRepository.findById(hotelId2)).thenReturn(Optional.of(carBooking2));
 
 		validateFindByHotelIdOrFlightId(carId0, flight);
-		//validateFindByHotelIdOrFlightId(hotelId1, carBooking1);
-		//validateFindByHotelIdOrFlightId(hotelId2, carBooking2);
+
 	}
 
 	private void validateFindByHotelIdOrFlightId(long id, FlightBooking flightBooking) throws Exception {
-		mockMvc.perform(get("/flightBookings/{id}", id))
+		mockMvc.perform(get("/flightTable/{id}", id))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value(flightBooking.getId()))
