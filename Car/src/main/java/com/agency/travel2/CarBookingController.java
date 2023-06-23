@@ -1,6 +1,7 @@
 package com.agency.travel2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,10 @@ public class CarBookingController {
     public String carBookingSubmit(@ModelAttribute CarBooking carbooking, Model model) {
         model.addAttribute("carbooking", carbooking);
         createCarBooking(carbooking);
+        String flight_url = "http://localhost:8081/flightTable/" + carbooking.getFlightId() + "/carId/" + carbooking.getId();
+        restTemplate.exchange(flight_url, HttpMethod.PUT, null, String.class);
+        String hotel_url = "http://localhost:8082/hotelTable/" + carbooking.getHotelId() + "/carId/" + carbooking.getId();
+        restTemplate.exchange(hotel_url, HttpMethod.PUT, null, String.class);
         return "result";
     }
 
@@ -51,6 +56,36 @@ public class CarBookingController {
             return new ResponseEntity<>(carTable, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/carTable/{id}/flightId/{flightId}")
+    @ResponseBody
+    public ResponseEntity<CarBooking> updateFlightId(@PathVariable("id") long id, @PathVariable("flightId") long flightId) {
+        Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
+
+        if (carBookingData.isPresent()) {
+            CarBooking carBooking = carBookingData.get();
+            carBooking.setFlightId(flightId);
+
+            return new ResponseEntity<>(carBookingRepository.save(carBooking), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/carTable/{id}/hotelId/{hotelId}")
+    @ResponseBody
+    public ResponseEntity<CarBooking> updateHotelId(@PathVariable("id") long id, @PathVariable("hotelId") long hotelId) {
+        Optional<CarBooking> carBookingData = carBookingRepository.findById(id);
+
+        if (carBookingData.isPresent()) {
+            CarBooking carBooking = carBookingData.get();
+            carBooking.setHotelId(hotelId);
+
+            return new ResponseEntity<>(carBookingRepository.save(carBooking), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
