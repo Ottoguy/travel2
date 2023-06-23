@@ -36,7 +36,7 @@ public class HotelBookingController {
             String hotel_info = getHotelBookingInfo(id).getBody();
 
             try{
-                String flight_url = "http://localhost:8081/flightTable/info/" + hotelBookingData.get().getFlightId();
+                String flight_url = "http://host.docker.internal:8081/flightTable/info/" + hotelBookingData.get().getFlightId();
                 ResponseEntity<String> flight_response = restTemplate.getForEntity(flight_url, String.class);
                 flight_info = flight_response.getBody();
 
@@ -46,7 +46,7 @@ public class HotelBookingController {
             }
 
             try{
-                String car_url = "http://localhost:8080/carTable/info/" + hotelBookingData.get().getCarId();
+                String car_url = "http://host.docker.internal:8080/carTable/info/" + hotelBookingData.get().getCarId();
                 ResponseEntity<String> car_response = restTemplate.getForEntity(car_url, String.class);
                 car_info = car_response.getBody();
 
