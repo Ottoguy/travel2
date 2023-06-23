@@ -34,9 +34,9 @@ public class CarBookingController {
     public String carBookingSubmit(@ModelAttribute CarBooking carbooking, Model model) {
         model.addAttribute("carbooking", carbooking);
         createCarBooking(carbooking);
-        String flight_url = "http://localhost:8081/flightTable/" + carbooking.getFlightId() + "/carId/" + carbooking.getId();
+        String flight_url = "http://host.docker.internal:8081/flightTable/" + carbooking.getFlightId() + "/carId/" + carbooking.getId();
         restTemplate.exchange(flight_url, HttpMethod.PUT, null, String.class);
-        String hotel_url = "http://localhost:8082/hotelTable/" + carbooking.getHotelId() + "/carId/" + carbooking.getId();
+        String hotel_url = "http://host.docker.internal:8082/hotelTable/" + carbooking.getHotelId() + "/carId/" + carbooking.getId();
         restTemplate.exchange(hotel_url, HttpMethod.PUT, null, String.class);
         return "result";
     }
