@@ -1,6 +1,7 @@
 package com.agency.travel2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -71,6 +72,10 @@ public class FlightBookingController {
     public String flightBookingSubmit(@ModelAttribute FlightBooking flightbooking, Model model) {
         model.addAttribute("flightbooking", flightbooking);
         createFlightBooking(flightbooking);
+        String car_url = "http://localhost:8080/carTable/" + flightbooking.getCarId() + "/flightId/" + flightbooking.getId();
+        restTemplate.exchange(car_url, HttpMethod.PUT, null, String.class);
+        String hotel_url = "http://localhost:8082/hotelTable/" + flightbooking.getHotelId() + "/flightId/" + flightbooking.getId();
+        restTemplate.exchange(hotel_url, HttpMethod.PUT, null, String.class);
         return "result";
     }
 
@@ -101,6 +106,37 @@ public class FlightBookingController {
             return new ResponseEntity<>(flightBookingData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/flightTable/{id}/carId/{carId}")
+    @ResponseBody
+    public ResponseEntity<FlightBooking> updateCarId(@PathVariable("id") long id, @PathVariable("carId") long carId) {
+        Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
+
+        if (flightBookingData.isPresent()) {
+            FlightBooking flightBooking = flightBookingData.get();
+            flightBooking.setCarId(carId);
+
+            return new ResponseEntity<>(flightBookingRepository.save(flightBooking), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
+    @PutMapping("/flightTable/{id}/hotelId/{hotelId}")
+    @ResponseBody
+    public ResponseEntity<FlightBooking> updateHotelId(@PathVariable("id") long id, @PathVariable("hotelId") long hotelId) {
+        Optional<FlightBooking> flightBookingData = flightBookingRepository.findById(id);
+
+        if (flightBookingData.isPresent()) {
+            FlightBooking flightBooking = flightBookingData.get();
+            flightBooking.setHotelId(hotelId);
+
+            return new ResponseEntity<>(flightBookingRepository.save(flightBooking), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
